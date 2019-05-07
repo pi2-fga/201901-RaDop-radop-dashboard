@@ -52,6 +52,7 @@ coverage.xml
 
 # Django stuff:
 staticfiles/
+dashboard/static/
 
 # Sphinx documentation
 docs/_build/
