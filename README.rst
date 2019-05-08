@@ -13,131 +13,67 @@ Centro de Inteligência do RaDop
 
 :License: GPLv3
 
+O dashboard é um software que dá apoio ao RaDop.
 
-Settings
---------
 
-Moved to settings_.
+Comandos Básicos
+----------------
 
-.. _settings: http://cookiecutter-django.readthedocs.io/en/latest/settings.html
+Para buildar o projeto:
 
-Basic Commands
---------------
+::
 
-Setting Up Your Users
-^^^^^^^^^^^^^^^^^^^^^
+  docker-compose -f local.yml up --build
 
-* To create a **normal user account**, just go to Sign Up and fill out the form. Once you submit it, you'll see a "Verify Your E-mail Address" page. Go to your console to see a simulated email verification message. Copy the link into your browser. Now the user's email should be verified and ready to go.
+Para remover o projeto:
 
-* To create an **superuser account**, use this command::
+:: 
+
+  docker-compose -f local.yml down --rm all -v
+
+Configurando o usuário
+^^^^^^^^^^^^^^^^^^^^^^
+
+* Para criar uma **conta normal de usuário**, basta ir até Inscreva-se e preencher o formulário. Depois de enviá-lo, você verá uma página "Verificar seu endereço de e-mail".
+Vá para o seu console para ver uma mensagem de verificação de e-mail simulada. Copiei o link no seu navegador e pronto.
+
+* Para criar um **superuser account**, use esse comando::
 
     $ python manage.py createsuperuser
 
-For convenience, you can keep your normal user logged in on Chrome and your superuser logged in on Firefox (or similar), so that you can see how the site behaves for both kinds of users.
+Verificação de Tipo
+^^^^^^^^^^^^^^^^^^^
 
-Type checks
-^^^^^^^^^^^
-
-Running type checks with mypy:
+Verificações de tipo em execução com mypy:
 
 ::
 
   $ mypy dashboard
 
-Test coverage
-^^^^^^^^^^^^^
+Cobertura de Teste
+^^^^^^^^^^^^^^^^^^
 
-To run the tests, check your test coverage, and generate an HTML coverage report::
+Para executar os testes, verifique sua cobertura de teste e gere um relatório de cobertura de HTML::
 
     $ coverage run -m pytest
     $ coverage html
     $ open htmlcov/index.html
 
-Running tests with py.test
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+Executando testes com py.test
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ::
 
   $ pytest
 
-Live reloading and Sass CSS compilation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Recarregamento ao vivo e compilação CSS Sass
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Moved to `Live reloading and SASS compilation`_.
+Movido para `Live reloading e SASS compilation`_.
 
 .. _`Live reloading and SASS compilation`: http://cookiecutter-django.readthedocs.io/en/latest/live-reloading-and-sass-compilation.html
 
 
 
-Celery
-^^^^^^
-
-This app comes with Celery.
-
-To run a celery worker:
-
-.. code-block:: bash
-
-    cd dashboard
-    celery -A dashboard.taskapp worker -l info
-
-Please note: For Celery's import magic to work, it is important *where* the celery commands are run. If you are in the same folder with *manage.py*, you should be right.
-
-
-
-
-Email Server
-^^^^^^^^^^^^
-
-In development, it is often nice to be able to see emails that are being sent from your application. For that reason local SMTP server `MailHog`_ with a web interface is available as docker container.
-
-Container mailhog will start automatically when you will run all docker containers.
-Please check `cookiecutter-django Docker documentation`_ for more details how to start all containers.
-
-With MailHog running, to view messages that are sent by your application, open your browser and go to ``http://127.0.0.1:8025``
-
-.. _mailhog: https://github.com/mailhog/MailHog
-
-
-
-Sentry
-^^^^^^
-
-Sentry is an error logging aggregator service. You can sign up for a free account at  https://sentry.io/signup/?code=cookiecutter  or download and host it yourself.
-The system is setup with reasonable defaults, including 404 logging and integration with the WSGI application.
-
-You must set the DSN url in production.
-
-
-Deployment
-----------
-
-The following details how to deploy this application.
-
-
-
-Docker
-^^^^^^
-
-See detailed `cookiecutter-django Docker documentation`_.
-
-.. _`cookiecutter-django Docker documentation`: http://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html
-
-
-
-Custom Bootstrap Compilation
-^^^^^^
-
-The generated CSS is set up with automatic Bootstrap recompilation with variables of your choice.
-Bootstrap v4 is installed using npm and customised by tweaking your variables in ``static/sass/custom_bootstrap_vars``.
-
-You can find a list of available variables `in the bootstrap source`_, or get explanations on them in the `Bootstrap docs`_.
-
-
-Bootstrap's javascript as well as its dependencies is concatenated into a single file: ``static/js/vendors.js``.
-
-
-.. _in the bootstrap source: https://github.com/twbs/bootstrap/blob/v4-dev/scss/_variables.scss
-.. _Bootstrap docs: https://getbootstrap.com/docs/4.1/getting-started/theming/
 
 
