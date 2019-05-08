@@ -1,23 +1,49 @@
-<!DOCTYPE html>
+{% load static i18n compress%}<!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}RaDop Dashboard{% endblock title %}</title>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
 
-<head>
-  <meta charset="utf-8" />
-  <link rel="apple-touch-icon" sizes="76x76" href="dashboard/dashboard/assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="dashboard/dashboard/assets/img/favicon.png">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <title>
-    Material Dashboard Dark Edition by Creative Tim
-  </title>
-  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-  <!--     Fonts and icons     -->
-  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-  <!-- CSS Files -->
-  <link href="dashboard/dashboard/assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
-  <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="dashboard/dashboard/assets/demo/demo.css" rel="stylesheet" />
-</head>
+    <link rel="icon" href="{% static 'images/favicons/favicon.ico' %}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <!-- CSS Files -->
+    <link href="{% static 'css/material-dashboard.css' %}" rel="stylesheet" />
+
+    <!-- JS Files -->
+
+    <script src="{% static 'js/core/jquery.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/core/popper.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/core/bootstrap-material-design.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/plugins/perfect-scrollbar.jquery.min.js' %}"></script>
+    <!--  Google Maps Plugin    -->
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> -->
+    <!-- Chartist JS -->
+    <script src="{% static 'js/plugins/chartist.min.js' %}"></script>
+    <!--  Notifications Plugin    -->
+    <script src="{% static 'js/plugins/bootstrap-notify.js' %}"></script>
+    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="{% static 'js/material-dashboard.js' %}" type="text/javascript"></script>
+
+    {% block css %}
+    
+
+    <!-- Your stuff: Third-party CSS libraries go here -->
+    {% compress css %}
+    <!-- This file stores project-specific CSS -->
+    
+    <link href="{% static 'css/project.css' %}" rel="stylesheet">
+    
+    {% endcompress %}
+    {% endblock %}
+
+  </head>
 
 <body class="dark-edition">
   <div class="wrapper ">
