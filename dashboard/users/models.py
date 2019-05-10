@@ -25,7 +25,7 @@ class User(AbstractUser):
 
     birthday = models.DateField(
         _('Birthday'),
-        help_text=_("xx/xx/xxxx"),
+        help_text=_("DD/MM/AAAA"),
         blank=False,
         null=True
     )
@@ -34,8 +34,17 @@ class User(AbstractUser):
         help_text=_("Por favor, entre com um CPF" +
                     "seguindo o formato: XXX.XXX.XXX-XX"),
         unique=True,
+        blank=True,
+        null=True,
         validators=[validate_cpf],
         max_length=14,
+    )
+
+    matricula = models.CharField(
+        max_length=10,
+        unique=True,
+        blank=True,
+        null=True
     )
 
     def get_absolute_url(self):

@@ -10,6 +10,7 @@ from .models import (User)
 class MyUserChangeForm(UserChangeForm):
     class Meta(UserChangeForm.Meta):
         model = User
+        fields = '__all__'
 
 
 class MyUserCreationForm(UserCreationForm):
@@ -20,6 +21,7 @@ class MyUserCreationForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         model = User
+        fields = '__all__'
 
     def clean_username(self):
         username = self.cleaned_data["username"]
@@ -35,8 +37,12 @@ class MyUserAdmin(AuthUserAdmin):
     form = MyUserChangeForm
     add_form = MyUserCreationForm
     fieldsets = (
-             ('User Profile', {'fields': (('name'), ('gender'),
-             ('birthday'), ('cpf'))}),
+             ('User Profile', {'fields': (
+                 ('name'),
+                 ('gender'),
+                 ('birthday'),
+                 ('cpf')
+                )}),
     ) + AuthUserAdmin.fieldsets
-    list_display = ('username', 'name', 'is_superuser')
-search_fields = ['name']
+    list_display = ('username', 'name', 'is_superuser', 'birthday', 'cpf')
+    search_fields = ['name']
