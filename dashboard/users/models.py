@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db.models import CharField
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
+from .utils.validators import validate_cpf
 
 
 class User(AbstractUser):
@@ -33,15 +34,11 @@ class User(AbstractUser):
         help_text=_("Por favor, entre com um CPF" +
                     "seguindo o formato: XXX.XXX.XXX-XX"),
         unique=True,
+        validators=[validate_cpf],
         max_length=14,
-        default='000.000.000-00',
-    )
-
-    matricula = models.CharField(
-        unique=True,
-        max_length=7,
-        default='00'
     )
 
     def get_absolute_url(self):
         return reverse("users:detail", kwargs={"username": self.username})
+
+    
