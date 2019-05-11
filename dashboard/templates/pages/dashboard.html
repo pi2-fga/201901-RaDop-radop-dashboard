@@ -1,3 +1,4 @@
+{% block content %}
 {% load static i18n compress%}<!DOCTYPE html>
 <html lang="en">
   <head>
@@ -50,7 +51,6 @@
     <div class="sidebar" data-color="purple" data-background-color="black" data-image="dashboard/dashboard/assets/img/sidebar-2.jpg">
       <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
-
         Tip 2: you can also add an image using data-image tag
     -->
       <div class="logo">
@@ -61,7 +61,7 @@
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item active  ">
-            <a class="nav-link" href="./dashboard.html">
+            <a class="nav-link" href="../../dash">
               <i class="material-icons">dashboard</i>
               <p>Dashboard</p>
             </a>
@@ -90,6 +90,21 @@
               <p>Notifications</p>
             </a>
           </li>
+          {% if user.is_authenticated %}
+          <li class="nav-item ">
+            <a class="nav-link" href="{% url 'account_logout' %}">
+              <i class="material-icons">power_settings_new</i>
+              <p>Sair</p>
+            </a>
+          </li>
+        {% else %}
+        <li class="nav-item ">
+          <a class="nav-link" href="{% url 'account_login' %}">
+            <i class="material-icons">power_settings_new</i>
+            <p>Entrar</p>
+          </a>
+        </li>
+        {% endif %}
         </ul>
       </div>
     </div>
@@ -130,7 +145,7 @@
                 </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="javascript:void(0)">
+                <a class="nav-link" href="{% url 'users:detail' user.username %}">
                   <i class="material-icons">person</i>
                   <p class="d-lg-none d-md-block">
                     Account
@@ -853,3 +868,5 @@
 </body>
 
 </html>
+
+{% endblock content %}
