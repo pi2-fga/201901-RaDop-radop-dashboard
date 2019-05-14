@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Radar: {{ object.name }}{% endblock %}
+
+{% block content %}
+<div class="col-sm-12">
+    <a class="btn btn-primary float-right" href="{% url 'radar:update' %}" role="button">Minhas informações</a>
+    <a class="btn btn-primary float-right" href="{% url 'account_email' %}" role="button">E-Mail</a>
+    <!-- Your Stuff: Custom user template urls -->
+  </div>
+{% endblock content %}
+
