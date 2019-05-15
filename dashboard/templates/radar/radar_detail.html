@@ -1,13 +1,51 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 {% load static %}
 
 {% block title %}Radar: {{ object.name }}{% endblock %}
 
 {% block content %}
-<div class="col-sm-12">
-    <a class="btn btn-primary float-right" href="{% url 'radar:update' %}" role="button">Minhas informações</a>
-    <a class="btn btn-primary float-right" href="{% url 'account_email' %}" role="button">E-Mail</a>
-    <!-- Your Stuff: Custom user template urls -->
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-primary">
+            <h4 class="card-title">Radar - {{object.name}}</h4>
+            <p class="card-category">Aqui está as informações deste radar</p>
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="bmd-label-floating">Nome</label>
+                    <h4>{{ object.name}}</h4>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="bmd-label-floating">Identificação</label>
+                    <h4>{{ object.identificacao }}</h4>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="bmd-label-floating">Localização</label>
+                    <h5>Latitude: {{ object.position.latitude }}</h4>
+                    <h5>Longitude: {{ object.position.longitude }}</h4>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <a class="btn btn-primary float-left" href="{% url 'radar:list' %}" role="button">Voltar</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
 {% endblock content %}
 

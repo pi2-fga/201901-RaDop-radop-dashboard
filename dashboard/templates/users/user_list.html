@@ -3,15 +3,29 @@
 {% block title %}Members{% endblock %}
 
 {% block content %}
-<div class="container">
-  <h2>Users</h2>
-
-  <div class="list-group">
-    {% for user in user_list %}
-      <a href="{% url 'users:detail' user.username %}" class="list-group-item">
-        <h4 class="list-group-item-heading">{{ user.username }}</h4>
-      </a>
-    {% endfor %}
+<div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header card-header-primary">
+              <h4 class="card-title">Todos os Usuários</h4>
+              <p class="card-category">Aqui está as informações de todos os usuários</p>
+            </div>
+            <div class="card-body">
+              <div class="list-group">
+                {% for User in user_list %}
+                  <a href="{% url 'users:detail' user.username %}" class="list-group-item">
+                    <h4 class="list-group-item-heading">{{ user.username }}</h4>
+                  </a>
+                  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 {% endblock content %}

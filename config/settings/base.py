@@ -49,7 +49,7 @@ ROOT_URLCONF = "config.urls"
 # https://docs.djangoproject.com/en/dev/ref/settings/#wsgi-application
 WSGI_APPLICATION = "config.wsgi.application"
 # GOOGLE API FOR GOOGLE MAPS
-GEOPOSITION_GOOGLE_MAPS_API_KEY = ""
+GEOPOSITION_GOOGLE_MAPS_API_KEY = ''
 
 # APPS
 # ------------------------------------------------------------------------------
