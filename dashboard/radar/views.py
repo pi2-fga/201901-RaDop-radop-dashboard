@@ -9,7 +9,7 @@ class RadarDetailView(LoginRequiredMixin, DetailView):
     model = Radar
     slug_field = "name"
     slug_url_kwarg = "name"
-    fields = ["cpf"]
+    fields = ["identificacao"]
 
 
 radar_detail_view = RadarDetailView.as_view()
@@ -34,7 +34,7 @@ class RadarUpdateView(LoginRequiredMixin, UpdateView):
         return reverse("radar:detail", kwargs={"name": self.request.radar.name})
 
     def get_object(self):
-        return radar.objects.get(name=self.request.radar.name)
+        return Radar.objects.get(name=self.request.radar.name)
 
 
 radar_update_view = RadarUpdateView.as_view()

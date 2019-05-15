@@ -48,6 +48,8 @@ DATABASES["default"]["ATOMIC_REQUESTS"] = True
 ROOT_URLCONF = "config.urls"
 # https://docs.djangoproject.com/en/dev/ref/settings/#wsgi-application
 WSGI_APPLICATION = "config.wsgi.application"
+# GOOGLE API FOR GOOGLE MAPS
+GEOPOSITION_GOOGLE_MAPS_API_KEY = ""
 
 # APPS
 # ------------------------------------------------------------------------------
@@ -67,6 +69,7 @@ THIRD_PARTY_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "rest_framework",
+    "geoposition",
 ]
 LOCAL_APPS = [
     "dashboard.users.apps.UsersAppConfig",

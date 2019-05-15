@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models import CharField, FloatField
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
+from geoposition.fields import GeopositionField
 
 class Radar(models.Model):
 
@@ -14,12 +15,7 @@ class Radar(models.Model):
         null=True
     )
 
-    longitude = models.FloatField(_("Longitude"),
-        blank=True,
-        null=True
-    )
-
-    latitude = models.FloatField(_("Latitude"),
+    position = GeopositionField(
         blank=True,
         null=True
     )
