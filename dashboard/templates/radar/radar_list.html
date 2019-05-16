@@ -9,14 +9,14 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header card-header-primary">
-              <h4 class="card-title">Todos os Usuários</h4>
-              <p class="card-category">Aqui está as informações de todos os usuários</p>
+              <h4 class="card-title">Todos os RaDops</h4>
+              <p class="card-category">Aqui está as informações de todos os radares</p>
             </div>
             <div class="card-body">
               <div class="list-group">
-                {% for User in user_list %}
-                  <a href="{% url 'users:detail' user.username %}" class="list-group-item">
-                    <h4 class="list-group-item-heading">{{ user.username }}</h4>
+                {% for radar in radar_list %}
+                  <a href="{% url 'radar:detail' radar.name %}" class="list-group-item">
+                    <h4 class="list-group-item-heading">{{ radar.name }}</h4>
                   </a>
                   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
                 {% endfor %}
