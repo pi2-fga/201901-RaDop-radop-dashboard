@@ -5,6 +5,23 @@
 {% block title %}Radar: {{ object.name }}{% endblock %}
 
 {% block content %}
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+<meta charset="utf-8">
+
+<style>
+    /* Always set the map height explicitly to define the size of the div
+     * element that contains the map. */
+    #map {
+      height: 100%;
+    }
+    /* Optional: Makes the sample page fill the window. */
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+</style>
+
 <div class="content">
   <div class="container-fluid">
     <div class="row">
@@ -31,21 +48,46 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                   <div class="form-group">
                     <label class="bmd-label-floating">Localização</label>
-                    <h5>Latitude: {{ object.position.latitude }}</h4>
-                    <h5>Longitude: {{ object.position.longitude }}</h4>
+                    <h5>Latitude: {{ object.position.latitude }} -  Longitude: {{ object.position.longitude }}</h5>
                   </div>
                 </div>
               </div>
             </form>
+            <input type="hidden" id="lat" name="latitude" value="{{ object.position.latitude }}">
+            <input type="hidden" id="lon" name="longitude" value="{{ object.position.longitude }}">
             <a class="btn btn-primary float-left" href="{% url 'radar:list' %}" role="button">Voltar</a>
           </div>
         </div>
+        <div id="map"></div>
+            <script>
+
+              function initMap() {
+                var latitude = parseFloat(document.getElementById("lat").value);
+                var longitude = parseFloat(document.getElementById("lon").value);
+                var myLatLng = {lat: latitude, lng: longitude};
+
+                var map = new google.maps.Map(document.getElementById('map'), {
+                  zoom: 4,
+                  center: myLatLng
+                });
+
+                var marker = new google.maps.Marker({
+                  position: myLatLng,
+                  map: map,
+                  title: 'Hello World!'
+                });
+              }
+            </script>
+            <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBUMuAdPP4NE3QKAqsNzHnwKRDPKCYsbno&callback=initMap">
+            </script>
       </div>
     </div>
   </div>
 </div>
+
 {% endblock content %}
 
