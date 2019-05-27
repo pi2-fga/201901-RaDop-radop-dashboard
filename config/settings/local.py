@@ -11,7 +11,13 @@ SECRET_KEY = env(
     default="ZlXlONb1fY4QnZ9Yvu7PZzXd9Nb6njl1NXgKye6p29wyhAvDdvp29PY2LVLHwlHp",
 )
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1", "172.19.0.9"]
+ALLOWED_HOSTS = [
+    "localhost",
+    "0.0.0.0",
+    "127.0.0.1",
+    "172.19.0.9",
+    "www.radopdashboard.ml"
+    ]
 
 # CACHES
 # ------------------------------------------------------------------------------
