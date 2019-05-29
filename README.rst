@@ -13,8 +13,7 @@ Centro de Inteligência do RaDop
 
 :License: GPLv3
 
-O dashboard é um software que dá apoio ao RaDop.
-
+O Dashboard irá funcionar como um Business intelligence, onde todas as informações importantes para o radar estarão dispostas tanto para o administrador do radar, quanto para o usuário que só esteja buscando por informações.
 
 Comandos Básicos
 ----------------
