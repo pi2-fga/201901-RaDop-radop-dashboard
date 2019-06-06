@@ -179,8 +179,9 @@ md = {
     if ($('#dailySalesChart').length != 0 || $('#completedTasksChart').length != 0 || $('#websiteViewsChart').length != 0) {
       /* ----------==========     Daily Sales Chart initialization    ==========---------- */
 
+
       dataDailySalesChart = {
-        labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+        labels: ['S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
         series: [
           [12, 17, 7, 17, 23, 18, 38]
         ]

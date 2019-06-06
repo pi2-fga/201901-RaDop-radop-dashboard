@@ -1,15 +1,15 @@
 from django.db import models
-from django.db.models import CharField, FloatField
+from django.db.models import CharField, IntegerField
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from geoposition.fields import GeopositionField
+
 
 class Radar(models.Model):
 
     name = CharField(_("Nome do Radar"), blank=True, max_length=255)
 
-    identificacao = models.CharField(_("Identificação do Radar"),
-        max_length=10,
+    identificacao = models.IntegerField(_("Identificação do Radar"),
         unique=True,
         blank=True,
         null=True
@@ -29,5 +29,3 @@ class Radar(models.Model):
 
     def get_absolute_url(self):
         return reverse("radar:detail", kwargs={"name": self.name})
-
-    
