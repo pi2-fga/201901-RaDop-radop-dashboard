@@ -51,26 +51,26 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label class="bmd-label-floating">Localização</label>
-                    <h5>Latitude: {{ object.position.latitude }} -  Longitude: {{ object.position.longitude }}</h5>
+                    <h5>Latitude: {{ object.position.latitude }}</h5>
+                    <h5>Longitude: {{ object.position.longitude }}</h5>
                   </div>
                 </div>
               </div>
             </form>
             <input type="hidden" id="lat" name="latitude" value="{{ object.position.latitude }}">
             <input type="hidden" id="lon" name="longitude" value="{{ object.position.longitude }}">
-            <a class="btn btn-primary float-left" href="{% url 'radar:list' %}" role="button">Voltar</a>
+            <a class="btn btn-primary float-right" href="{% url 'radar:list' %}" role="button">Voltar</a>
           </div>
         </div>
         <div id="map"></div>
             <script>
-
               function initMap() {
-                var latitude = parseFloat(document.getElementById("lat").value);
-                var longitude = parseFloat(document.getElementById("lon").value);
+                var latitude = parseFloat(document.getElementById("lat").value.replace(',', '.'));
+                var longitude = parseFloat(document.getElementById("lon").value.replace(',', '.'));
                 var myLatLng = {lat: latitude, lng: longitude};
 
                 var map = new google.maps.Map(document.getElementById('map'), {
-                  zoom: 4,
+                  zoom: 17,
                   center: myLatLng
                 });
 

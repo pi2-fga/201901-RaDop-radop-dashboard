@@ -119,7 +119,7 @@ async def get_all_statuses():
         pass
 
 
-async def get_all_notifications():
+async def get_all_infraction_notifications():
     try:
         async with websockets.connect(
             f'{WS_SERVER}{GET_ALL}'
@@ -156,6 +156,26 @@ async def get_all_notifications():
             else:
                 infraction = json.loads(response)
 
+            return infraction['response_message']
+
+    except (asyncio.TimeoutError, ConnectionRefusedError) as err:
+        print(err)
+    except ConnectionClosed as err:
+        print(err)
+    except RuntimeError as err:
+        print(err)
+    except Exception as err:
+        print(err)
+    else:
+        pass
+
+
+async def get_all_feasible_notifications():
+    try:
+        async with websockets.connect(
+            f'{WS_SERVER}{GET_ALL}'
+        ) as websocket:
+
             payload = {
                 'database': GET_ALL_NOTIFY_DB,
                 'table': GET_ALL_FEASIBLE_TABLE
@@ -187,12 +207,8 @@ async def get_all_notifications():
             else:
                 feasible = json.loads(response)
 
-            data = {
-                'infraction': infraction['response_message'],
-                'feasible': feasible['response_message']
-            }
+            return feasible['response_message']
 
-            return data
     except (asyncio.TimeoutError, ConnectionRefusedError) as err:
         print(err)
     except ConnectionClosed as err:
@@ -209,9 +225,10 @@ def get_websocket_data():
     try:
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
-        infractions = {} # loop.run_until_complete(get_all_infractions())
+        infractions = {}  # loop.run_until_complete(get_all_infractions())
         statuses = loop.run_until_complete(get_all_statuses())
-        notifications = loop.run_until_complete(get_all_notifications())
+        notify_infraction = loop.run_until_complete(get_all_infraction_notifications())
+        notify_feasible = loop.run_until_complete(get_all_feasible_notifications())
         loop.close()
     except (asyncio.TimeoutError, ConnectionRefusedError) as err:
         print(err)
@@ -227,4 +244,4 @@ def get_websocket_data():
         asyncio.get_event_loop().stop()
     else:
         asyncio.get_event_loop().stop()
-        return infractions, statuses, notifications
+        return infractions, statuses, notify_infraction, notify_feasible
