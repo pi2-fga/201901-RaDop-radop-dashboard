@@ -55,27 +55,15 @@
     -->
       <div class="logo">
         <a href="/" class="simple-text logo-normal">
-          RaDop
+          RaDop Dashboard
         </a>
       </div>
       <div class="sidebar-wrapper">
         <ul class="nav">
-          <li class="nav-item active  ">
+          <li class="nav-item">
             <a class="nav-link" href="/">
               <i class="material-icons">dashboard</i>
               <p>Dashboard</p>
-            </a>
-          </li>
-         <li class="nav-item ">
-            <a class="nav-link" href="./tables.html">
-              <i class="material-icons">content_paste</i>
-              <p>Table List</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./typography.html">
-              <i class="material-icons">library_books</i>
-              <p>Typography</p>
             </a>
           </li>
           <li class="nav-item ">
@@ -85,7 +73,7 @@
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./notifications.html">
+            <a class="nav-link" href="#">
               <i class="material-icons">notifications</i>
               <p>Notifications</p>
             </a>
@@ -243,10 +231,10 @@
               <div class="card card-stats">
                 <div class="card-header card-header-success card-header-icon">
                   <div class="card-icon">
-                    <i class="material-icons">store</i>
+                    <i class="material-icons">notifications_active</i>
                   </div>
-                  <p class="card-category">Revenue</p>
-                  <h3 class="card-title">$34,245</h3>
+                  <p class="card-category">Notificações Reportadas</p>
+                  <h3 class="card-title">{{ notifications|length }}</h3>
                 </div>
                 <div class="card-footer">
                   <div class="stats">
@@ -261,12 +249,12 @@
                   <div class="card-icon">
                     <i class="material-icons">info_outline</i>
                   </div>
-                  <p class="card-category">Fixed Issues</p>
-                  <h3 class="card-title">75</h3>
+                  <p class="card-category">Infrações Reportadas</p>
+                  <h3 class="card-title">{{ statuses|length }}</h3>
                 </div>
                 <div class="card-footer">
                   <div class="stats">
-                    <i class="material-icons">local_offer</i> Tracked from Github
+                    <i class="material-icons">local_offer</i><a href="http://www.radop.ml:8181/#tables/3f02e25a-bc25-4d2e-947a-75ebc1370e14">Rastreado via RethinkDB</a>
                   </div>
                 </div>
               </div>
@@ -275,10 +263,10 @@
               <div class="card card-stats">
                 <div class="card-header card-header-info card-header-icon">
                   <div class="card-icon">
-                    <i class="fa fa-twitter"></i>
+                    <i class="fa fa-check"></i>
                   </div>
-                  <p class="card-category">Followers</p>
-                  <h3 class="card-title">+245</h3>
+                  <p class="card-category">Status Reportados</p>
+                  <h3 class="card-title">{{ statuses|length }}</h3>
                 </div>
                 <div class="card-footer">
                   <div class="stats">
@@ -300,29 +288,16 @@
                     <thead class="text-warning">
                       <th>ID</th>
                       <th>Nome</th>
-                      <th>Localização</th>
+                      <th>Status</th>
                      </thead>
                     <tbody>
+                    {% for radar in radars %}
                       <tr>
-                        <td>1</td>
-                        <td>Dakota Rice</td>
-                        <td>$36,738</td>
+                        <td>{{ radar.identificacao }}</td>
+                        <td><a href="{% url 'radar:detail' radar.name %}">{{ radar.name }}</a></td>
+                        <td>OK!</td>
                       </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>Minerva Hooper</td>
-                        <td>$23,789</td>
-                      </tr>
-                      <tr>
-                        <td>3</td>
-                        <td>Sage Rodriguez</td>
-                        <td>$56,142</td>
-                      </tr>
-                      <tr>
-                        <td>4</td>
-                        <td>Philip Chaney</td>
-                        <td>$38,735</td>
-                      </tr>
+                    {% endfor %}
                     </tbody>
                   </table>
                 </div>

@@ -44,6 +44,5 @@
     "gulp-sass": "^4.0.1",
     "gulp-sourcemaps": "^2.6.4",
     "gulp-open": "^3.0.1"
-  },
-  "homepage": "http://demos.creative-tim.com/material-dashboard-dark/examples/dashboard.html"
+  }
 }

@@ -2,6 +2,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from django.views.generic import DetailView, ListView, RedirectView, UpdateView
 from dashboard.radar.models.models_radar import Radar
+from dashboard.radar.utils import get_websocket_data
+import json
 
 
 class RadarDetailView(LoginRequiredMixin, DetailView):
