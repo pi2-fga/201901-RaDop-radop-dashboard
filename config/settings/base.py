@@ -74,6 +74,7 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     "dashboard.users.apps.UsersAppConfig",
     "dashboard.radar.apps.RadarConfig",
+    "dashboard.notification.apps.NotificationConfig"
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
