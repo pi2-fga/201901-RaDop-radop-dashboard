@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}Notificação: {{ object.identifier }}{% endblock %}
+
+{% block content %}
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+<meta charset="utf-8">
+
+<style>
+    /* Always set the map height explicitly to define the size of the div
+     * element that contains the map. */
+    #map {
+      height: 100%;
+    }
+    /* Optional: Makes the sample page fill the window. */
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+</style>
+
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-primary">
+            <h4 class="card-title">Notificação: {{object.identifier}}</h4>
+            <p class="card-category">Aqui está as informações desta notificação do tipo: {{ object.notification_type }}</p>
+          </div>
+          <div class="card-body">
+            <form>
+              {% if object.notification_type is 'INFRACAO' %}
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="bmd-label-floating">Velocidade permetida na via</label>
+                    <h4>{{ object.allowed_track_speed}}</h4>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="bmd-label-floating">Velocidade considerada</label>
+                    <h4>{{ object.considered_speed }}</h4>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="bmd-label-floating">Penalidade</label>
+                        <h4>{{ object.penalty }}</h4>
+                        <h7>{{ object.penalty.value }} R$</h7> e 
+                        <h7>{{ object.penalty.points }} pontos na carteira</h7>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="bmd-label-floating">Velocidade Lida</label>
+                      <h4>{{ object.read_speed }}</h4>
+                    </div>
+                  </div>
+              </div>
+              <div class="row">
+                
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="bmd-label-floating">Data</label>
+                    <h4>{{ object.date }}</h4>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="bmd-label-floating">Hora</label>
+                      <h4>{{ object.time }}</h4>
+                    </div>
+                  </div>
+              </div>
+            </br></br>
+            <div class="card-header card-header-icon card-header">
+                <div class="card-icon">
+                    <i class="material-icons">directions_car</i>
+                </div>
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">Dados do carro</h4>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <label class="bmd-label-floating">Marca</label>
+                    <h4>{{ object.vehicle_brand}}</h4>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <label class="bmd-label-floating">Chassi</label>
+                    <h4>{{ object.vehicle_chassi }}</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <label class="bmd-label-floating">Cidade</label>
+                    <h4>{{ object.vehicle_city}}</h4>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <label class="bmd-label-floating">Cor</label>
+                    <h4>{{ object.vehicle_color }}</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <label class="bmd-label-floating">Modelo</label>
+                    <h4>{{ object.vehicle_model}}</h4>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <label class="bmd-label-floating">Placa</label>
+                    <h4>{{ object.vehicle_plate }}</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <label class="bmd-label-floating">Estado</label>
+                    <h4>{{ object.vehicle_state}}</h4>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <label class="bmd-label-floating">Status</label>
+                    <h4>{{ object.vehicle_status }}</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                    <label class="bmd-label-floating">Ano</label>
+                    <h4>{{ object.vehicle_year}}</h4>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+
+            {%endif %}
+            </form>
+            <a class="btn btn-primary float-right" href="{% url 'notification:list' %}" role="button">Voltar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+{% endblock content %}
+

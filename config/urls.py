@@ -16,6 +16,7 @@ urlpatterns = [
     # User management
     path("users/", include("dashboard.users.urls", namespace="users")),
     path("radar/", include("dashboard.radar.urls", namespace="radar")),
+    path("notification/", include("dashboard.notification.urls", namespace="notification")),
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -210,4 +210,4 @@ class Notification(models.Model):
         verbose_name_plural = _("Notificações")
 
     def __str__(self):
-        return _(f'Infração N {self.name}')
+        return (f'Infração N {self.identifier}')
