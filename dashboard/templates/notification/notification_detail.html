@@ -29,11 +29,12 @@
         <div class="card">
           <div class="card-header card-header-primary">
             <h4 class="card-title">Notificação: {{object.identifier}}</h4>
-            <p class="card-category">Aqui está as informações desta notificação do tipo: {{ object.notification_type }}</p>
+            <p class="card-category">Aqui estão as informações desta notificação.</p>
           </div>
           <div class="card-body">
             <form>
-              {% if object.notification_type is 'INFRACAO' %}
+              {% if object.notification_type == 'INFRACAO' %}
+              <h5 class="card-title">Tipo de notificação: Infração</h5>
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
@@ -53,7 +54,7 @@
                     <div class="form-group">
                         <label class="bmd-label-floating">Penalidade</label>
                         <h4>{{ object.penalty }}</h4>
-                        <h7>{{ object.penalty.value }} R$</h7> e 
+                        <h7>R${{ object.penalty.value }}</h7> e 
                         <h7>{{ object.penalty.points }} pontos na carteira</h7>
                     </div>
                 </div>
@@ -63,9 +64,6 @@
                       <h4>{{ object.read_speed }}</h4>
                     </div>
                   </div>
-              </div>
-              <div class="row">
-                
               </div>
               <div class="row">
                 <div class="col-md-6">
@@ -147,15 +145,35 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="form-group">
                     <label class="bmd-label-floating">Ano</label>
                     <h4>{{ object.vehicle_year}}</h4>
                     </div>
                 </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                  <label class="bmd-label-floating">Identificação</label>
+                  <h4>{{ object.infraction_identifier }}</h4>
+                  </div>
+              </div>
             </div>
             {% else %}
-
+            <h5 class="card-title">Tipo de notificação: Possibilidade de acidente</h5>
+            <div class="row">
+              <div class="col-md-6">
+                  <div class="form-group">
+                  <label class="bmd-label-floating">Possibilidade de Acidente</label>
+                  <h4>{{ object.crash_feasability }}</h4>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="form-group">
+                  <label class="bmd-label-floating">Identificação</label>
+                  <h4>{{ object.infraction_identifier }}</h4>
+                  </div>
+              </div>
+            </div>
             {%endif %}
             </form>
             <a class="btn btn-primary float-right" href="{% url 'notification:list' %}" role="button">Voltar</a>

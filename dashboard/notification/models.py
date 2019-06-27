@@ -130,10 +130,12 @@ class Notification(models.Model):
 
     infraction_identifier = models.CharField(
         max_length=36,
+        blank=True,
     )
 
     identifier = models.CharField(
         max_length=36,
+        blank=True,
     )
 
     notification_type = models.CharField(
