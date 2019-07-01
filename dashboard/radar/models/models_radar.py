@@ -3,6 +3,8 @@ from django.db.models import CharField, IntegerField
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from geoposition.fields import GeopositionField
+from dashboard.radar.utils import RADOP_API
+import requests
 
 
 class Radar(models.Model):
@@ -29,3 +31,21 @@ class Radar(models.Model):
 
     def get_absolute_url(self):
         return reverse("radar:detail", kwargs={"name": self.name})
+
+    def save(self):
+        user_id = 1
+        radar_name = self.name
+        latitude = float(self.position.latitude)
+        longitude = float(self.position.longitude)
+
+        package = {
+            'user_id': user_id,
+            'name': radar_name,
+            'latitude': latitude,
+            'longitude': longitude
+        }
+
+        response = requests.post(url=f'{RADOP_API}/radars', json=package)
+
+        if response.status_code == 200:
+            super(Radar, self).save()

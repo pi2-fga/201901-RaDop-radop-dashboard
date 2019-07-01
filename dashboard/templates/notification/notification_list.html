@@ -16,7 +16,7 @@
               <div class="list-group">
                 {% for notification in notification_list %}
                   <a href="{% url 'notification:detail' notification.identifier %}" class="list-group-item">
-                    <h4 class="list-group-item-heading">{{ notification.identifier }}</h4>
+                    <h4 class="list-group-item-heading">{{ notification.identifier|make_list|slice:":6"|join:"" }}</h4>
                   </a>
                   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
                 {% endfor %}

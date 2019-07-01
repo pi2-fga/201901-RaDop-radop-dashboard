@@ -17,14 +17,17 @@ class Penalty(models.Model):
         max_length=14,
         choices=LEVEL_OPTIONS,
         default=MEDIUM,
+        blank=True,
     )
 
     points = models.IntegerField(
         default=3,
+        blank=True,
     )
 
     value = models.FloatField(
         default=130.16,
+        blank=True,
     )
 
     class Meta:
@@ -130,12 +133,10 @@ class Notification(models.Model):
 
     infraction_identifier = models.CharField(
         max_length=36,
-        blank=True,
     )
 
     identifier = models.CharField(
         max_length=36,
-        blank=True,
     )
 
     notification_type = models.CharField(
@@ -149,6 +150,7 @@ class Notification(models.Model):
         'Penalty',
         on_delete=models.CASCADE,
         blank=True,
+        null=True,
     )
 
     read_speed = models.IntegerField(

@@ -28,7 +28,7 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header card-header-primary">
-            <h4 class="card-title">Notificação: {{object.identifier}}</h4>
+            <h4 class="card-title">Notificação: {{ object.identifier|make_list|slice:":6"|join:"" }}</h4>
             <p class="card-category">Aqui estão as informações desta notificação.</p>
           </div>
           <div class="card-body">
