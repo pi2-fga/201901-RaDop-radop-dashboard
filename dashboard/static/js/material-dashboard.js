@@ -174,11 +174,23 @@ md = {
     }
   },
 
-  initDashboardPageCharts: function() {
+  initDashboardPageCharts: function(notifs_infraction) {
+    const YEAR = new Date().getFullYear();
 
-    if ($('#dailySalesChart').length != 0 || $('#completedTasksChart').length != 0 || $('#websiteViewsChart').length != 0) {
+    const notifs_filtered_year_month = notifs_infraction.filter(notification => {
+      return notification.date.split('/')[2] == YEAR;
+    })
+
+    let notifications_month = [];
+    while(notifications_month.length < 12) { notifications_month.push([]) }
+
+    notifs_filtered_year_month.forEach(notification => {
+      let month = Number(notification.date.split('/')[1]);
+      notifications_month[--month].push(notification);
+    });
+
+    if ($('#dailySalesChart').length != 0 || $('#speedMonthChart').length != 0 || $('#notificationsMonthChart').length != 0) {
       /* ----------==========     Daily Sales Chart initialization    ==========---------- */
-
 
       dataDailySalesChart = {
         labels: ['S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
@@ -206,21 +218,31 @@ md = {
       md.startAnimationForLineChart(dailySalesChart);
 
 
-      /* ----------==========     Completed Tasks Chart initialization    ==========---------- */
+      /* ----------==========     Speed by Month Chart initialization    ==========---------- */
+      let mean_speed_month = [];
+      notifications_month.forEach(month => {
+        let mean_speed = 0;
+        if(month.length > 0) {
+          let sum_speed = 0;
+          month.forEach((notification) => {
+            sum_speed = sum_speed + notification.considered_speed;
+          });
+          mean_speed = sum_speed / month.length;
+        }
+        mean_speed_month.push(mean_speed);
+      });
 
-      dataCompletedTasksChart = {
-        labels: ['12p', '3p', '6p', '9p', '12p', '3a', '6a', '9a'],
-        series: [
-          [230, 750, 450, 300, 280, 240, 200, 190]
-        ]
+      dataSpeedMonthChart = {
+        labels: ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
+        series: [ mean_speed_month ]
       };
 
-      optionsCompletedTasksChart = {
+      optionsSpeedMonthChart = {
         lineSmooth: Chartist.Interpolation.cardinal({
           tension: 0
         }),
         low: 0,
-        high: 1000, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+        high: 200, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
         chartPadding: {
           top: 0,
           right: 0,
@@ -229,27 +251,30 @@ md = {
         }
       }
 
-      var completedTasksChart = new Chartist.Line('#completedTasksChart', dataCompletedTasksChart, optionsCompletedTasksChart);
+      var speedMonthChart = new Chartist.Line('#speedMonthChart', dataSpeedMonthChart, optionsSpeedMonthChart);
 
       // start animation for the Completed Tasks Chart - Line Chart
-      md.startAnimationForLineChart(completedTasksChart);
+      md.startAnimationForLineChart(speedMonthChart);
 
 
-      /* ----------==========     Emails Subscription Chart initialization    ==========---------- */
+      /* ----------==========     Notifications by Month Chart initialization    ==========---------- */
+      data_notifications_month = [];
+      notifications_month.forEach(month => {
+        data_notifications_month.push(month.length);
+      });
 
-      var dataWebsiteViewsChart = {
+      var dataNotificationsMonthChart = {
         labels: ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
         series: [
-          [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]
-
+          data_notifications_month
         ]
       };
-      var optionsWebsiteViewsChart = {
+      var optionsNotificationsMonthChart = {
         axisX: {
           showGrid: false
         },
         low: 0,
-        high: 1000,
+        high: 50,
         chartPadding: {
           top: 0,
           right: 5,
@@ -267,10 +292,10 @@ md = {
           }
         }]
       ];
-      var websiteViewsChart = Chartist.Bar('#websiteViewsChart', dataWebsiteViewsChart, optionsWebsiteViewsChart, responsiveOptions);
+      var notificationsMonthChart = Chartist.Bar('#notificationsMonthChart', dataNotificationsMonthChart, optionsNotificationsMonthChart, responsiveOptions);
 
       //start animation for the Emails Subscription Chart
-      md.startAnimationForBarChart(websiteViewsChart);
+      md.startAnimationForBarChart(notificationsMonthChart);
     }
   },
 
@@ -312,7 +337,7 @@ md = {
     $sidebar_wrapper = $('.sidebar-wrapper');
 
     if (!mobile_menu_initialized) {
-      console.log('intra');
+      // console.log('intra');
       $navbar = $('nav').find('.navbar-collapse').children('.navbar-nav');
 
       mobile_menu_content = '';
