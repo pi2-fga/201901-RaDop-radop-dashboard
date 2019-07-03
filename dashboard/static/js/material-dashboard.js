@@ -175,6 +175,7 @@ md = {
   },
 
   initDashboardPageCharts: function(notifs_infraction) {
+    /* ----------==========     Prepare data for charts    ==========---------- */
     const YEAR = new Date().getFullYear();
 
     const notifs_filtered_year_month = notifs_infraction.filter(notification => {
@@ -182,40 +183,58 @@ md = {
     })
 
     let notifications_month = [];
-    while(notifications_month.length < 12) { notifications_month.push([]) }
+    while(notifications_month.length < 12) { notifications_month.push([]); }
 
     notifs_filtered_year_month.forEach(notification => {
       let month = Number(notification.date.split('/')[1]);
       notifications_month[--month].push(notification);
     });
 
-    if ($('#dailySalesChart').length != 0 || $('#speedMonthChart').length != 0 || $('#notificationsMonthChart').length != 0) {
-      /* ----------==========     Daily Sales Chart initialization    ==========---------- */
+    if ($('#notificationsTimeChart').length != 0 || $('#speedMonthChart').length != 0 || $('#notificationsMonthChart').length != 0) {
 
-      dataDailySalesChart = {
-        labels: ['S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
-        series: [
-          [12, 17, 7, 17, 23, 18, 38]
-        ]
+      /* ----------==========     Notification's Period of Time Chart initialization    ==========---------- */
+      let data_time_period = [];
+      while(data_time_period.length < 6) { data_time_period.push(0); }
+
+      notifications_month.forEach(month => {
+        if(month.length > 0) {
+          month.forEach(notification => {
+            let hour = Number(notification.time.split(':')[0]);
+            let period = Math.floor(hour / 4);
+            data_time_period[period] += 1;
+          });
+        };
+      });
+
+      let higher_period = 0;
+      data_time_period.forEach(element => {
+        if(element > higher_period) {
+          higher_period = element;
+        }
+      });
+
+      dataNotificationsTimeChart = {
+        labels: ['00\n03', '04\n07', '08\n11', '12\n15', '16\n19', '20\n23'],
+        series: [data_time_period]
       };
 
-      optionsDailySalesChart = {
+      optionsNotificationsTimeChart = {
         lineSmooth: Chartist.Interpolation.cardinal({
           tension: 0
         }),
         low: 0,
-        high: 50, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+        high: (higher_period + 10 - (higher_period % 10)), // creative tim: we recommend you to set the high sa the biggest value + something for a better look
         chartPadding: {
           top: 0,
           right: 0,
-          bottom: 0,
+          bottom: 14,
           left: 0
         },
       }
 
-      var dailySalesChart = new Chartist.Line('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
+      var notificationsTimeChart = new Chartist.Line('#notificationsTimeChart', dataNotificationsTimeChart, optionsNotificationsTimeChart);
 
-      md.startAnimationForLineChart(dailySalesChart);
+      md.startAnimationForLineChart(notificationsTimeChart);
 
 
       /* ----------==========     Speed by Month Chart initialization    ==========---------- */
@@ -232,9 +251,16 @@ md = {
         mean_speed_month.push(mean_speed);
       });
 
+      let higher_mean_speed = 0;
+      mean_speed_month.forEach(element => {
+        if(element > higher_mean_speed) {
+          higher_mean_speed = element;
+        }
+      });
+
       dataSpeedMonthChart = {
         labels: ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
-        series: [ mean_speed_month ]
+        series: [mean_speed_month]
       };
 
       optionsSpeedMonthChart = {
@@ -242,7 +268,7 @@ md = {
           tension: 0
         }),
         low: 0,
-        high: 200, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+        high: (higher_mean_speed + 10 - (higher_mean_speed % 10)), // creative tim: we recommend you to set the high sa the biggest value + something for a better look
         chartPadding: {
           top: 0,
           right: 0,
@@ -269,12 +295,20 @@ md = {
           data_notifications_month
         ]
       };
+
+      let higher_notifications_month = 0;
+      data_notifications_month.forEach(element => {
+        if(element > higher_notifications_month) {
+          higher_notifications_month = element;
+        }
+      });
+
       var optionsNotificationsMonthChart = {
         axisX: {
           showGrid: false
         },
         low: 0,
-        high: 50,
+        high: (higher_notifications_month + 10 - (higher_notifications_month % 10)),
         chartPadding: {
           top: 0,
           right: 5,
