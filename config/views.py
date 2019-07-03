@@ -2,6 +2,7 @@ from django.views.generic import TemplateView
 from dashboard.radar.utils import get_websocket_data
 from dashboard.radar.models.models_radar import Radar
 import datetime
+import json
 
 
 class DashboardView(TemplateView):
@@ -33,4 +34,7 @@ class DashboardView(TemplateView):
         context['statuses'] = statuses['response_message']
         context['last_updated'] = self.get_last_date(notify_infraction)
         context['last_infractions'] = self.get_last_infractions(notify_infraction)
+        context['json_notify_feasible'] = json.dumps(notify_feasible, ensure_ascii=False)
+        context['json_notify_infraction'] = json.dumps(notify_infraction, ensure_ascii=False)
+        print(f'DEBUG notificações:\n{context["json_notify_infraction"]}')
         return context
